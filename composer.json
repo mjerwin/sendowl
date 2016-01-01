@@ -1,14 +1,19 @@
 {
-    "name": "mjerwin/sendowl",
-    "description": "PHP Wrapper for SendOwl API",
-    "type": "library",
-    "require": {
-        "guzzlehttp/guzzle": "^6.1"
-    },
-    "authors": [
-        {
-            "name": "Matthew Erwin",
-            "email": "m@tthewerwin.com"
-        }
-    ]
+  "name": "mjerwin/sendowl",
+  "description": "PHP Wrapper for SendOwl API",
+  "type": "library",
+  "require": {
+    "guzzlehttp/guzzle": "^6.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "MJErwin\\SendOwl": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Matthew Erwin",
+      "email": "m@tthewerwin.com"
+    }
+  ]
 }
