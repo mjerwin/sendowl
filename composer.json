@@ -1,0 +1,14 @@
+{
+    "name": "mjerwin/sendowl",
+    "description": "PHP Wrapper for SendOwl API",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^6.1"
+    },
+    "authors": [
+        {
+            "name": "Matthew Erwin",
+            "email": "m@tthewerwin.com"
+        }
+    ]
+}
