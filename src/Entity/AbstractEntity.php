@@ -74,6 +74,11 @@ abstract class AbstractEntity
         }
     }
 
+    public function toArray()
+    {
+        return $this->data;
+    }
+
     /**
      * @return array
      */
