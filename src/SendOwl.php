@@ -56,6 +56,36 @@ class SendOwl
         return $this;
     }
 
+    public function hasAuthenticationData()
+    {
+        return $this->api_key && $this->api_secret ? true : false;
+    }
+
+    /**
+     * @param array $request_data
+     * @param string $signature
+     *
+     * @return bool
+     */
+    public function isSignatureValid($request_data, $signature)
+    {
+        // Remove *signature* from the data
+        unset($request_data['signature']);
+
+        // Sort alphabetically
+        ksort($request_data);
+
+        $request_data['secret'] = $this->api_secret;
+
+        $query = http_build_query($request_data);
+
+        $key = sprintf('%s&%s', $this->api_key, $this->api_secret);
+
+        $request_signature = base64_encode(hash_hmac('sha1', $query, $key, true));
+
+        return $request_signature == $signature ? true : false;
+    }
+
     /**
      * @param $entity_type
      *

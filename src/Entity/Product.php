@@ -33,6 +33,7 @@ use MJErwin\SendOwl\Traits\ViewableEntityTrait;
  *
  *
  * @method static Product get(int $id)
+ * @method static Product[] all()
  */
 class Product extends AbstractEntity
 {
