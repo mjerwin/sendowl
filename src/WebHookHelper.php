@@ -32,7 +32,16 @@ class WebHookHelper
     {
         if (empty($this->data))
         {
-            $this->data = json_decode(file_get_contents("php://input"), true);
+            $input = \Input::all();
+
+            $input_php = json_decode(file_get_contents("php://input"), true);
+
+            if($input_php)
+            {
+                $input = array_merge($input, $input_php);
+            }
+
+            $this->data = $input;
         }
 
         return $this->data;

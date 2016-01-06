@@ -5,6 +5,9 @@
   "require": {
     "guzzlehttp/guzzle": "^6.1"
   },
+  "require-dev": {
+    "phpunit/phpunit": "5.1.*"
+  },
   "autoload": {
     "psr-4": {
       "MJErwin\\SendOwl\\": "src/"

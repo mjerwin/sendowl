@@ -69,6 +69,14 @@ class SendOwl
      */
     public function isSignatureValid($request_data, $signature)
     {
+        if(!$request_data)
+        {
+            return false;
+        }
+
+        // Decode all the values
+        array_map('urldecode', $request_data);
+
         // Remove *signature* from the data
         unset($request_data['signature']);
 
@@ -77,7 +85,7 @@ class SendOwl
 
         $request_data['secret'] = $this->api_secret;
 
-        $query = http_build_query($request_data);
+        $query = urldecode(http_build_query($request_data));
 
         $key = sprintf('%s&%s', $this->api_key, $this->api_secret);
 
