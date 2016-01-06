@@ -6,3 +6,7 @@ php:
   - '7.0'
   - hhvm
   - nightly
+
+before_script:
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --dev
