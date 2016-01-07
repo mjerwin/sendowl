@@ -10,19 +10,19 @@ class ProductTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @dataProvider providerConstructData
+     * @dataProvider providerAttributeData
      */
     public function testConstructSetsData($data)
     {
         $product = new Product($data);
 
         $attr = key($data);
-        
+
         $this->assertEquals(reset($data), $product->{$attr});
     }
 
     /**
-     * @dataProvider providerConstructData
+     * @dataProvider providerAttributeData
      */
     public function testSetterSetsData($data)
     {
