@@ -1,13 +1,18 @@
 <?php
-use MJErwin\SendOwl\SendOwl;
 
+use MJErwin\SendOwl\SendOwl;
 
 /**
  * @author Matthew Erwin <m@tthewerwin.com>
  * www.matthewerwin.co.uk
  */
-class SignatureTest extends PHPUnit_Framework_TestCase
+class SendOwlTest extends PHPUnit_Framework_TestCase
 {
+    public function testInstance()
+    {
+        $this->assertInstanceOf(SendOwl::class, SendOwl::instance());
+    }
+
     public function testSignatureValidation()
     {
         $sendowl = SendOwl::instance();
@@ -21,5 +26,10 @@ class SignatureTest extends PHPUnit_Framework_TestCase
         $valid_signature = $sendowl->isSignatureValid($request_data, $signature);
 
         $this->assertTrue($valid_signature);
+    }
+
+    public function tearDown()
+    {
+        SendOwl::tearDown();
     }
 }

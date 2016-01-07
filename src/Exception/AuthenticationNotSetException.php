@@ -10,7 +10,7 @@ use Exception;
  */
 class AuthenticationNotSetException extends \Exception
 {
-    public function __construct($message = null, $code, Exception $previous)
+    public function __construct($message = null, $code = null, Exception $previous = null)
     {
         if(!$message)
         {

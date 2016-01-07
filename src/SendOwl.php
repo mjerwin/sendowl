@@ -42,6 +42,11 @@ class SendOwl
         return self::$instance;
     }
 
+    public static function tearDown()
+    {
+        self::$instance = null;
+    }
+
     /**
      * @param $api_key
      * @param $api_secret

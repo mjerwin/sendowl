@@ -32,7 +32,7 @@ class WebHookHelper
     {
         if (empty($this->data))
         {
-            $input = \Input::all();
+            $input = $_REQUEST;
 
             $input_php = json_decode(file_get_contents("php://input"), true);
 
