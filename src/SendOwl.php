@@ -6,6 +6,8 @@ namespace MJErwin\SendOwl;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Response;
+use MJErwin\SendOwl\Api\SendOwlApi;
+use MJErwin\SendOwl\Api\SendOwlApiInterface;
 use MJErwin\SendOwl\Exception\EntityNotFoundException;
 use MJErwin\SendOwl\Exception\EntityInvalidException;
 
@@ -19,6 +21,8 @@ class SendOwl
     protected static $instance;
     protected $api_key;
     protected $api_secret;
+    /** @var SendOwlApiInterface */
+    protected $api;
 
     /**
      * SendOwl constructor.
@@ -47,6 +51,24 @@ class SendOwl
         self::$instance = null;
     }
 
+    public function getApi()
+    {
+        if (!$this->api instanceof SendOwlApiInterface)
+        {
+            $this->api = new SendOwlApi();
+            $this->api->authenticate($this->api_key, $this->api_secret);
+        }
+
+        return $this->api;
+    }
+
+    public function setApi(SendOwlApiInterface $api)
+    {
+        $this->api = $api;
+
+        return $this;
+    }
+
     /**
      * @param $api_key
      * @param $api_secret
@@ -58,6 +80,8 @@ class SendOwl
         $this->api_key = $api_key;
         $this->api_secret = $api_secret;
 
+        $this->getApi()->authenticate($api_key, $api_secret);
+
         return $this;
     }
 
@@ -67,14 +91,14 @@ class SendOwl
     }
 
     /**
-     * @param array $request_data
+     * @param array  $request_data
      * @param string $signature
      *
      * @return bool
      */
     public function isSignatureValid($request_data, $signature)
     {
-        if(!$request_data)
+        if (!$request_data)
         {
             return false;
         }
@@ -106,13 +130,7 @@ class SendOwl
      */
     public function fetchEntitiesData($entity_type)
     {
-        $endpoint = sprintf('%s.json', $entity_type::$api_endpoint);
-
-        $response = $this->performRequest($endpoint);
-
-        $response_data = $this->getResponseData($response);
-
-        return $response_data;
+        return $this->getApi()->fetchEntitiesData($entity_type);
     }
 
     /**
@@ -120,26 +138,10 @@ class SendOwl
      * @param $id
      *
      * @return mixed
-     * @throws EntityNotFoundException
      */
     public function fetchEntityData($entity_type, $id)
     {
-        $endpoint = sprintf('%s/%s.json', $entity_type::$api_endpoint, $id);
-
-        try
-        {
-            $response = $this->performRequest($endpoint);
-        } catch(ClientException $e)
-        {
-            if ($e->getCode() == 404)
-            {
-                throw new EntityNotFoundException($entity_type, $id);
-            }
-        }
-
-        $response_data = $this->getResponseData($response);
-
-        return $response_data;
+        return $this-$this->getApi()->fetchEntityData($entity_type, $id);
     }
 
     /**
@@ -148,47 +150,21 @@ class SendOwl
      * @param $data
      *
      * @return mixed
-     * @throws EntityNotFoundException
      */
     public function updateEntity($entity_type, $id, $data)
     {
-        $endpoint = sprintf('%s/%s.json', $entity_type::$api_endpoint, $id);
-
-        try
-        {
-            $response = $this->performRequest($endpoint, $data, 'PUT');
-        } catch(ClientException $e)
-        {
-            if ($e->getCode() == 404)
-            {
-                throw new EntityNotFoundException($entity_type, $id);
-            }
-        }
-
-        $response_data = $this->getResponseData($response);
-
-        return $response_data;
+        return $this->getApi()->updateEntity($entity_type, $id, $data);
     }
 
+    /**
+     * @param $entity_type
+     * @param $data
+     *
+     * @return mixed
+     */
     public function createEntity($entity_type, $data)
     {
-        $endpoint = sprintf('%s.json', $entity_type::$api_endpoint);
-
-        try
-        {
-            $response = $this->performRequest($endpoint, $data, 'POST');
-        } catch(ClientException $e)
-        {
-            if ($e->getCode() == 422)
-            {
-                $errors = $this->getResponseData($e->getResponse());
-                throw new EntityInvalidException($entity_type, $errors);
-            }
-        }
-
-        $response_data = $this->getResponseData($response);
-
-        return $response_data;
+        return $this->getApi()->createEntity($entity_type, $data);
     }
 
     /**
@@ -196,68 +172,9 @@ class SendOwl
      * @param $id
      *
      * @return mixed
-     * @throws EntityNotFoundException
      */
     public function deleteEntity($entity_type, $id)
     {
-        $endpoint = sprintf('%s/%s.json', $entity_type::$api_endpoint, $id);
-
-        try
-        {
-            $response = $this->performRequest($endpoint, [], 'DELETE');
-        } catch(ClientException $e)
-        {
-            if ($e->getCode() == 404)
-            {
-                throw new EntityNotFoundException($entity_type, $id);
-            }
-        }
-
-        $response_data = $this->getResponseData($response);
-
-        return $response_data;
-    }
-
-    /**
-     * @param Response $response
-     *
-     * @return mixed
-     */
-    protected function getResponseData(Response $response)
-    {
-        $content = json_decode($response->getBody(), true);
-
-        if (!$content)
-        {
-            // @todo Handle invalid JSON error.
-        }
-
-        return $content;
-    }
-
-    /**
-     * @param        $endpoint
-     * @param array  $data
-     * @param string $method
-     *
-     * @return Response
-     */
-    protected function performRequest($endpoint, $data = [], $method = 'GET')
-    {
-        $client = new Client();
-
-        $request_options = [];
-
-        $request_options['auth'] = [$this->api_key, $this->api_secret];
-
-        if (!empty($data))
-        {
-            $request_options['json'] = $data;
-        }
-
-        /** @var Response $res */
-        $res = $client->request($method, $endpoint, $request_options);
-
-        return $res;
+        return $this->getApi()->deleteEntity($entity_type, $id);
     }
 }
