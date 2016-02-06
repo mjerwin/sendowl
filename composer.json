@@ -3,8 +3,7 @@
   "description": "PHP Wrapper for SendOwl API",
   "type": "library",
   "require": {
-    "guzzlehttp/guzzle": "^6.1",
-    "pimple/pimple": "^3.0"
+    "guzzlehttp/guzzle": "^6.1"
   },
   "require-dev": {
     "phpunit/phpunit": "5.1.*"
