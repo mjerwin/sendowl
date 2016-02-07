@@ -69,6 +69,8 @@ class SendOwlApi implements SendOwlApiInterface
             {
                 throw new EntityNotFoundException($entity_type, $id);
             }
+
+            throw $e;
         }
 
         $response_data = $this->getResponseData($response);
@@ -97,6 +99,8 @@ class SendOwlApi implements SendOwlApiInterface
             {
                 throw new EntityNotFoundException($entity_type, $id);
             }
+
+            throw $e;
         }
 
         $response_data = $this->getResponseData($response);
@@ -118,6 +122,8 @@ class SendOwlApi implements SendOwlApiInterface
                 $errors = $this->getResponseData($e->getResponse());
                 throw new EntityInvalidException($entity_type, $errors);
             }
+
+            throw $e;
         }
 
         $response_data = $this->getResponseData($response);
@@ -141,10 +147,13 @@ class SendOwlApi implements SendOwlApiInterface
             $response = $this->performRequest($endpoint, [], 'DELETE');
         } catch(ClientException $e)
         {
+            var_dump($e->getCode());
             if ($e->getCode() == 404)
             {
                 throw new EntityNotFoundException($entity_type, $id);
             }
+
+            throw $e;
         }
 
         $response_data = $this->getResponseData($response);
