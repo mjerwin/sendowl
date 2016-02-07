@@ -29,12 +29,9 @@ class SendOwlApiTest extends PHPUnit_Framework_TestCase
         $response = $this->getMockBuilder(Response::class)->getMock();
         $response->method('getStatusCode')->willReturn(404);
 
-        // Mock the ClientException
-        $exception = $this->getMockBuilder(ClientException::class)->setConstructorArgs([null, new Request('x', 'y'), $response])->getMock();
-
         $api->expects($this->once())
             ->method('performRequest')
-            ->will($this->throwException($exception));
+            ->will($this->throwException(new ClientException(null, new Request('x', 'y'), $response)));
 
         $sendowl->setApi($api);
 
