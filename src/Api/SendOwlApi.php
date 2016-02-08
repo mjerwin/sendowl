@@ -179,7 +179,7 @@ class SendOwlApi implements SendOwlApiInterface
     }
 
     /**
-     * @param        $endpoint
+     * @param        string $endpoint
      * @param array  $data
      * @param string $method
      *
