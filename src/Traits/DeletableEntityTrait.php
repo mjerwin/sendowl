@@ -19,7 +19,7 @@ trait DeletableEntityTrait
 {
     public function delete()
     {
-        $entity_class = self::class;
+        $entity_class = get_called_class();
 
         if (!$this->id)
         {

@@ -19,7 +19,7 @@ trait UpdatableEntityTrait
 {
     public function update()
     {
-        $entity_class = self::class;
+        $entity_class = get_called_class();
 
         $data = $this->data;
 
