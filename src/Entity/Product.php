@@ -38,11 +38,9 @@ use MJErwin\SendOwl\Traits\ViewableEntityTrait;
 class Product extends AbstractEntity
 {
     public static $api_endpoint = 'https://www.sendowl.com/api/v1/products';
-    public static $response_root_key = 'product';
 
     protected $data = [];
 
-    use ViewableEntityTrait;
     use UpdatableEntityTrait;
     use CreatableEntityTrait;
     use DeletableEntityTrait;

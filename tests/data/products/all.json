@@ -1,0 +1,52 @@
+[
+    {
+        "product": {
+            "add_to_cart_url": "https://transactions.sendowl.com/products/12345/ABCD/add_to_cart",
+            "attachment": {
+                "filename": null,
+                "size": null
+            },
+            "created_at": "2015-12-13T16:45:55Z",
+            "currency_code": "GBP",
+            "custom_field": null,
+            "id": 12345,
+            "instant_buy_url": "https://transactions.sendowl.com/products/12345/ABCD/purchase",
+            "license_fetch_url": null,
+            "license_type": "generated",
+            "name": "Test Product",
+            "pdf_stamping": false,
+            "price": "21.99",
+            "product_image_url": "https://s3.amazonaws.com/customise.sendowl.com/test.png",
+            "product_type": "software",
+            "sales_limit": null,
+            "self_hosted_url": "http://google.co.uk",
+            "shopify_variant_id": null,
+            "updated_at": "2016-01-01T12:21:29Z"
+        }
+    },
+    {
+        "product": {
+            "add_to_cart_url": "https://transactions.sendowl.com/products/12345/ABCD/add_to_cart",
+            "attachment": {
+                "filename": null,
+                "size": null
+            },
+            "created_at": "2015-12-13T16:45:55Z",
+            "currency_code": "GBP",
+            "custom_field": null,
+            "id": 12346,
+            "instant_buy_url": "https://transactions.sendowl.com/products/12345/ABCD/purchase",
+            "license_fetch_url": null,
+            "license_type": "generated",
+            "name": "Test Product 2",
+            "pdf_stamping": false,
+            "price": "21.99",
+            "product_image_url": "https://s3.amazonaws.com/customise.sendowl.com/test.png",
+            "product_type": "software",
+            "sales_limit": null,
+            "self_hosted_url": "http://google.co.uk",
+            "shopify_variant_id": null,
+            "updated_at": "2016-01-01T12:21:29Z"
+        }
+    }
+]

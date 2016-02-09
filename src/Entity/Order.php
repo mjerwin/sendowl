@@ -20,8 +20,6 @@ class Order extends AbstractEntity
 
     protected $data = [];
 
-    use ViewableEntityTrait;
-
     /**
      * @return array
      */
