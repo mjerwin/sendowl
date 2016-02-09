@@ -1,12 +1,14 @@
 <?php
 
+namespace MJErwin\SendOwl\Tests;
+
 use MJErwin\SendOwl\SendOwl;
 
 /**
  * @author Matthew Erwin <m@tthewerwin.com>
  * www.matthewerwin.co.uk
  */
-class SendOwlTest extends PHPUnit_Framework_TestCase
+class SendOwlTest extends AbstractTestCase
 {
     public function testInstance()
     {

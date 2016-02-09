@@ -10,7 +10,8 @@
   },
   "autoload": {
     "psr-4": {
-      "MJErwin\\SendOwl\\": "src/"
+      "MJErwin\\SendOwl\\": "src/",
+      "MJErwin\\SendOwl\\Tests\\": "tests/"
     }
   },
   "authors": [

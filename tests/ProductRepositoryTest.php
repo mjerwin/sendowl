@@ -1,4 +1,7 @@
 <?php
+
+namespace MJErwin\SendOwl\Tests;
+
 use MJErwin\SendOwl\Api\SendOwlApi;
 use MJErwin\SendOwl\Entity\Product;
 use MJErwin\SendOwl\Entity\Repository\ProductRepository;
@@ -8,7 +11,7 @@ use MJErwin\SendOwl\SendOwl;
  * @author Matthew Erwin <m@tthewerwin.com>
  * www.matthewerwin.co.uk
  */
-class ProductRepositoryTest extends PHPUnit_Framework_TestCase
+class ProductRepositoryTest extends AbstractTestCase
 {
     public function testGetProducts()
     {
@@ -51,6 +54,11 @@ class ProductRepositoryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('software', $first_product->product_type);
         $this->assertEquals('http://google.co.uk', $first_product->self_hosted_url);
         $this->assertEquals('2016-01-01T12:21:29Z', $first_product->updated_at);
+    }
+
+    public function testGetProduct()
+    {
+
     }
 
     public function tearDown()

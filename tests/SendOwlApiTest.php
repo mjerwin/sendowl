@@ -1,5 +1,7 @@
 <?php
 
+namespace MJErwin\SendOwl\Tests;
+
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -12,7 +14,7 @@ use MJErwin\SendOwl\Api\SendOwlApi;
  * @author Matthew Erwin <m@tthewerwin.com>
  * www.matthewerwin.co.uk
  */
-class SendOwlApiTest extends PHPUnit_Framework_TestCase
+class SendOwlApiTest extends AbstractTestCase
 {
     public function testDeletingInvalidEntityThrowsException()
     {

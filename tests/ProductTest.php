@@ -1,16 +1,15 @@
 <?php
-use GuzzleHttp\Psr7\Response;
-use MJErwin\SendOwl\Api\SendOwlApi;
-use MJErwin\SendOwl\Api\SendOwlApiInterface;
-use MJErwin\SendOwl\Entity\Product;
-use MJErwin\SendOwl\SendOwl;
 
+namespace MJErwin\SendOwl\Tests;
+
+use GuzzleHttp\Psr7\Response;
+use MJErwin\SendOwl\Entity\Product;
 
 /**
  * @author Matthew Erwin <m@tthewerwin.com>
  * www.matthewerwin.co.uk
  */
-class ProductTest extends PHPUnit_Framework_TestCase
+class ProductTest extends AbstractTestCase
 {
 
     /**
@@ -97,23 +96,4 @@ class ProductTest extends PHPUnit_Framework_TestCase
         $product->name = 'Updated Product';
         $product->update();
     }
-
-    protected function expectRequest($endpoint, $method, $data_path = null)
-    {
-        $api = $this->getMockBuilder(SendOwlApi::class)
-            ->setMethods(['performRequest'])
-            ->getMock();
-
-        $data = $data_path ? json_decode(file_get_contents($data_path), true) : [];
-
-        $api->expects($this->once())
-            ->method('performRequest')
-            ->with($endpoint, $data, $method)
-            ->willReturn(new Response());
-
-        SendOwl::instance()->setApi($api);
-
-        return $this;
-    }
-
 }
