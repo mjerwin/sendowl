@@ -17,6 +17,8 @@ use MJErwin\SendOwl\SendOwl;
  */
 trait UpdatableEntityTrait
 {
+    abstract public function getFieldDefinitions();
+
     public function update()
     {
         $entity_class = get_called_class();

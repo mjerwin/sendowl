@@ -16,6 +16,8 @@ use MJErwin\SendOwl\SendOwl;
  */
 trait CreatableEntityTrait
 {
+    abstract public function getFieldDefinitions();
+
     public function create()
     {
         $entity_class = get_called_class();
