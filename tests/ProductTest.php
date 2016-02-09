@@ -1,5 +1,9 @@
 <?php
+use GuzzleHttp\Psr7\Response;
+use MJErwin\SendOwl\Api\SendOwlApi;
+use MJErwin\SendOwl\Api\SendOwlApiInterface;
 use MJErwin\SendOwl\Entity\Product;
+use MJErwin\SendOwl\SendOwl;
 
 
 /**
@@ -59,4 +63,57 @@ class ProductTest extends PHPUnit_Framework_TestCase
             [['updated_at' => '2015-10-21 04:29']],
         ];
     }
+
+    /**
+     * Check the product create request
+     */
+    public function testCreateRequest()
+    {
+        $this->expectRequest('https://www.sendowl.com/api/v1/products.json', 'POST', __DIR__ . '/data/products/request/create.json');
+
+        $product = new Product();
+        $product->name = 'Test Product';
+        $product->create();
+    }
+
+    /**
+     * Check the product delete request
+     */
+    public function testDeleteRequest()
+    {
+        $this->expectRequest('https://www.sendowl.com/api/v1/products/999.json', 'DELETE');
+
+        $product = new Product();
+        $product->id = 999;
+        $product->delete();
+    }
+
+    public function testUpdateRequest()
+    {
+        $this->expectRequest('https://www.sendowl.com/api/v1/products/999.json', 'PUT', __DIR__ . '/data/products/request/update.json');
+
+        $product = new Product();
+        $product->id = 999;
+        $product->name = 'Updated Product';
+        $product->update();
+    }
+
+    protected function expectRequest($endpoint, $method, $data_path = null)
+    {
+        $api = $this->getMockBuilder(SendOwlApi::class)
+            ->setMethods(['performRequest'])
+            ->getMock();
+
+        $data = $data_path ? json_decode(file_get_contents($data_path), true) : [];
+
+        $api->expects($this->once())
+            ->method('performRequest')
+            ->with($endpoint, $data, $method)
+            ->willReturn(new Response());
+
+        SendOwl::instance()->setApi($api);
+
+        return $this;
+    }
+
 }

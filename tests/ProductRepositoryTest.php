@@ -19,7 +19,7 @@ class ProductRepositoryTest extends PHPUnit_Framework_TestCase
             ->setMethods(['fetchEntitiesData'])
             ->getMock();
 
-        $mock_data = json_decode(file_get_contents(__DIR__ . '../../tests/data/products/all.json'), true);
+        $mock_data = json_decode(file_get_contents(__DIR__ . '/data/products/response/all.json'), true);
         $api->expects($this->once())->method('fetchEntitiesData')->willReturn($mock_data);
 
         $sendowl->setApi($api);

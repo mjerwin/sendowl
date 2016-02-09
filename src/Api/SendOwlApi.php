@@ -180,8 +180,8 @@ class SendOwlApi implements SendOwlApiInterface
 
     /**
      * @param        string $endpoint
-     * @param array  $data
-     * @param string $method
+     * @param array         $data
+     * @param string        $method
      *
      * @return Response
      */

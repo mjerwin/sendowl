@@ -25,20 +25,20 @@ abstract class AbstractEntity
         return $this;
     }
 
-    protected function setData($data)
+    protected function setData($data = [])
     {
         $called_class = get_called_class();
         $response_root_key = $called_class::$response_root_key;
 
         // Check for data inside a root element.
-        if(sizeof($data) == 1 && key($data) == $response_root_key)
+        if (sizeof($data) == 1 && key($data) == $response_root_key)
         {
             $data = $data[$response_root_key];
         }
 
         $default_values = array_fill_keys(array_keys($this->getFieldDefinitions()), null);
 
-        $this->data = array_merge($default_values, $data);
+        $this->data = array_merge($default_values, $data ?: []);
 
         return $this;
     }
@@ -50,11 +50,12 @@ abstract class AbstractEntity
      */
     function __get($name)
     {
-        if(array_key_exists($name, $this->data))
+        if (array_key_exists($name, $this->data))
         {
             return $this->data[$name];
         }
-        else {
+        else
+        {
             trigger_error(sprintf('Undefined property: %s::$%s', get_called_class(), $name));
         }
     }
@@ -65,11 +66,12 @@ abstract class AbstractEntity
      */
     function __set($name, $value)
     {
-        if(array_key_exists($name, $this->data))
+        if (array_key_exists($name, $this->data))
         {
             $this->data[$name] = $value;
         }
-        else {
+        else
+        {
             trigger_error(sprintf('Undefined property: %s::$%s', get_called_class(), $name));
         }
     }
