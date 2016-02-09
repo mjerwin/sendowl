@@ -61,7 +61,7 @@ class ProductRepositoryTest extends AbstractTestCase
         $this->expectRequest('https://www.sendowl.com/api/v1/products.json', 'GET');
 
         $product_repo = new ProductRepository();
-        $products = $product_repo->all();
+        $product_repo->all();
     }
 
     public function testGetProduct()
@@ -89,7 +89,7 @@ class ProductRepositoryTest extends AbstractTestCase
         $this->expectRequest('https://www.sendowl.com/api/v1/products/123.json', 'GET');
 
         $product_repo = new ProductRepository();
-        $products = $product_repo->get(123);
+        $product_repo->get(123);
     }
 
     public function tearDown()
