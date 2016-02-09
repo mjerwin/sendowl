@@ -141,7 +141,7 @@ class SendOwl
      */
     public function fetchEntityData($entity_type, $id)
     {
-        return $this-$this->getApi()->fetchEntityData($entity_type, $id);
+        return $this->getApi()->fetchEntityData($entity_type, $id);
     }
 
     /**

@@ -56,9 +56,40 @@ class ProductRepositoryTest extends AbstractTestCase
         $this->assertEquals('2016-01-01T12:21:29Z', $first_product->updated_at);
     }
 
+    public function testGetProductsRequest()
+    {
+        $this->expectRequest('https://www.sendowl.com/api/v1/products.json', 'GET');
+
+        $product_repo = new ProductRepository();
+        $products = $product_repo->all();
+    }
+
     public function testGetProduct()
     {
+        $sendowl = SendOwl::instance();
 
+        // Mock the API
+        $api = $this->getMockBuilder(SendOwlApi::class)
+            ->setMethods(['fetchEntityData'])
+            ->getMock();
+
+        $mock_data = json_decode(file_get_contents(__DIR__ . '/data/products/response/get.json'), true);
+        $api->expects($this->once())->method('fetchEntityData')->willReturn($mock_data);
+
+        $sendowl->setApi($api);
+
+        $product_repo = new ProductRepository();
+        $product = $product_repo->get(999);
+
+        $this->assertInstanceOf(Product::class, $product);
+    }
+
+    public function testGetProductRequest()
+    {
+        $this->expectRequest('https://www.sendowl.com/api/v1/products/123.json', 'GET');
+
+        $product_repo = new ProductRepository();
+        $products = $product_repo->get(123);
     }
 
     public function tearDown()

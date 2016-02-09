@@ -1,0 +1,25 @@
+{
+  "product": {
+    "id": 1234,
+    "name": "Something",
+    "pdf_stamping": false,
+    "created_at": "2015-12-13T16:45:55Z",
+    "updated_at": "2016-01-01T12:21:29Z",
+    "product_type": "software",
+    "sales_limit": null,
+    "self_hosted_url": "http://google.co.uk",
+    "license_type": "generated",
+    "license_fetch_url": null,
+    "custom_field": null,
+    "shopify_variant_id": null,
+    "price": "0.00",
+    "currency_code": "GBP",
+    "product_image_url": "https://s3.amazonaws.com/customise.sendowl.com/img.jpg",
+    "attachment": {
+      "filename": null,
+      "size": null
+    },
+    "instant_buy_url": "https://transactions.sendowl.com/products/1234/ABCD/purchase",
+    "add_to_cart_url": "https://transactions.sendowl.com/products/1234/ABCD/add_to_cart"
+  }
+}

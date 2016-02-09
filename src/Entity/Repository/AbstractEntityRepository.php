@@ -39,6 +39,8 @@ abstract class AbstractEntityRepository
     }
 
     /**
+     * @param $id
+     *
      * @return AbstractEntity
      */
     public function get($id)
@@ -47,7 +49,7 @@ abstract class AbstractEntityRepository
 
         $data = SendOwl::instance()->fetchEntityData($entity_class, $id);
 
-        if ($this->getResponseRootKey())
+        if ($this->getResponseRootKey() && array_key_exists($this->getResponseRootKey(), $data))
         {
             $data = $data[$this->getResponseRootKey()];
         }
